@@ -1,0 +1,101 @@
+/* 
+ ! HEADER -------------------------
+*/
+.theaddisdiv{
+    width: 100%;
+}
+.tablobolumlerdiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.filtrelerdiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.filtrediv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.arainp{
+    height: 40%;
+    font-size: 17px;
+}
+/* 
+ ! HEADER -------------------------
+*/
+
+
+
+/* 
+ ! Cont -------------------------
+*/
+.tcontdisdiv{
+    width: 100%;
+}
+
+
+.taskdisdiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+/* 
+ ! Cont -------------------------
+*/
+
+
+
+/* 
+ ! Foot -------------------------
+*/
+
+.tfootdisdiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.tfooticdiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.ekledisdiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+
+}
+
+.sayfadisdiv{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 50;
+}
+
+.sayfaItem{
+    font-size: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* 
+ ! Foot -------------------------
+*/

@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route,Routes } from "react-router-dom";
+import Ana from "./pages/Ana";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Error404 from "./pages/Error404";
+import Header from "./components/Header";
+import { useCookies } from 'react-cookie'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from "react";
+import { setIsAuth, setToken, setUser } from "./redux/authSlice";
+
 
 function App() {
+  const dispatch = useDispatch()
+  const [cookie,SetCookie] = useCookies()
+
+  useEffect(()=>{
+    if(cookie.authCookie)
+    {
+      dispatch(setIsAuth(cookie.authCookie))
+      dispatch(setUser(cookie.userCookie))
+      dispatch(setToken(cookie.tokenCookie))
+
+    }
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header/>
+      <Routes>
+        <Route path="/" element={<Ana/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
+        <Route path="*" element={<Error404/>}/>
+      </Routes>
     </div>
   );
 }
