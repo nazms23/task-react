@@ -37,9 +37,17 @@ function TableCont({taskfonks}) {
         }
       }
     })
+
+    let renkclass = false
     //Filtrelenen tasklara göre sayfalama işlemleri ve yazdırılma
     let sayfayaYazilanTask = filtrelenmisTasks.slice(((sayfa-1)*4)+sayfa-1,(sayfa*4)+sayfa).map(k=>{
-      return <TaskOge taskAtt={k} afonks={taskfonks} key={k.id}/> 
+      renkclass = !renkclass
+
+      //! Gelen tarih bilgisini düzenler
+      let d = new Date(k.createdAt)
+      let dstring = `${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}`
+      console.log(d)
+      return <TaskOge renkicinclass={`renk${renkclass ? "1":"2"}`} taskAtt={k} createdDate={dstring} afonks={taskfonks} key={k.id}/> 
     })
 
     //Filtrelenen tasklara göre maksimum sayfa belirleme

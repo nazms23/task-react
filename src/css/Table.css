@@ -3,18 +3,40 @@
 */
 .theaddisdiv{
     width: 100%;
+    background-color: #86bbd8;
+    border-radius: 16px 16px 6px 6px;
 }
+
+
 .tablobolumlerdiv{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    align-items: center;
+    height: 40px;
 }
+.tablobolumdiv{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+}
+.tablobolumtext{
+    color: black;
+    text-align: center;
+}
+
+
 
 .filtrelerdiv{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    height: 100%;
+    border-bottom-style: solid;
+    border-color: #dee2e6;
 }
 
 .filtrediv{
@@ -23,11 +45,32 @@
     align-items: center;
     justify-content: center;
     flex: 1;
+    height: 100%;
+}
+.filtretext{
+    margin-right: 10px;
+}
+
+.filtreselect{
+    font-size: 17px;
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ebebeb;
+    cursor: pointer;
+    padding: 5px;
+}
+.filtreoption{
+    border-style: none;
 }
 
 .arainp{
-    height: 40%;
+    height: 50%;
     font-size: 17px;
+    border-style: none;
+    border-radius: 5px;
+    background-color: #ebebeb;
+    padding: 5px;
+    
 }
 /* 
  ! HEADER -------------------------
@@ -44,15 +87,67 @@
 
 
 .taskdisdiv{
+    height: 30%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    border-style: solid;
+    border-color: #6d9bb4;
+    border-width: 0.7px;
+    border-radius: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+.taskbolme{
+    margin-left:10px;
+}
+.taskkaydir{
+    max-width: 300px;
+}
+.tasktext{
+    font-size: 17px;
+    overflow-wrap: break-word;
+    
+}
+.taskinput{
+    border-style: none;
+    font-size: 17px;
+    background-color: #ebebeb;
+    border-radius: 5px;
+}
+.taskbutton{
+    border-style: none;
+    margin-left: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: white;
+    border-style: solid;
+}
+.savebuton:hover{
+    background-color: #95d387;
+}
+.editbuton:hover{
+    background-color: #ffdd00;
+}
+.deletebuton:hover{
+    background-color: rgb(252, 177, 177);
+}
+
+.renk1{
+    /* background-color: #F7EA48; */
+    background-color: #f8f9fa;
+}
+.renk2{
+    /* background-color: #c3b93a; */
+    background-color: #e9ecef;
 }
 /* 
  ! Cont -------------------------
 */
-
 
 
 /* 
@@ -64,20 +159,37 @@
     flex-direction: column;
     justify-content: space-evenly;
     width: 100%;
+    background-color: #86bbd8;
+    border-radius: 6px 6px 16px 16px;
 }
 
 .tfooticdiv{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
+
+.tfootustkisimdiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.tfootustbolmediv{
+    flex:1;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .ekledisdiv{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
     width: 100%;
+    padding-bottom: 10px;
 
 }
 
@@ -87,15 +199,55 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 50;
+    height: 40px;
 }
 
 .sayfaItem{
     font-size: 20px;
     margin-left: 10px;
     margin-right: 10px;
+    border-style: none;
+    border-radius: 5px;
 }
-
+.sayfabutton{
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    padding: 5px 20px 5px 20px;
+}
+.sayfabutton:hover{
+    background-color: rgb(193, 193, 193);
+    cursor: pointer;
+}
+.sayfabutton:active{
+    background-color: rgb(247, 247, 247);
+}
+.tfoottaskyazi{
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    margin: 0;
+    margin-right: 15px;
+}
+.tfootinput{
+    border-style: none;
+    border-radius: 5px;
+    font-size: 20px;
+    width: 60%;
+    padding: 5px;
+}
+.tfooteklebuton{
+    font-size: 20px;
+    background-color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    border: solid #95d387;
+    
+}
+.tfooteklebuton:hover{
+    background-color: #95d387;
+}
 /* 
  ! Foot -------------------------
 */

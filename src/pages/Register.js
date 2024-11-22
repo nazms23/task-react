@@ -53,7 +53,7 @@ function Register() {
             if(err.response.data.errors)
             {
               Object.keys(err.response.data.errors).forEach((e)=>{
-                NotificationManager.error(err.response.data.errors[e][0],"Hata",2000)
+                NotificationManager.error(err.response.data.errors[e][0],"Error",2000)
   
               })
             }
@@ -61,7 +61,7 @@ function Register() {
             {
               //? datanın içinde errors yoksa datanın içindeki hata içeriğini yazdır
               Object.keys(err.response.data).forEach((e)=>{
-                NotificationManager.error(err.response.data[e],"Hata",2000)
+                NotificationManager.error(err.response.data[e],"Error",2000)
               })
             }
           }
@@ -69,7 +69,7 @@ function Register() {
     }
     else
     {
-      NotificationManager.error("Şifreler birbiriyle uyuşmuyor.",'Şifre',2000)
+      NotificationManager.error("The passwords don't match.",'Password',2000)
     }
   }
   //? --------------------------
@@ -79,23 +79,23 @@ function Register() {
       <div className='logindisdiv'>
         <div className='formdisdiv'>
         <div className='formicdiv'>
-            <p style={{flex:2}}>Username: </p>
-            <input style={{flex:1}} type='email' value={username} onChange={v=>setUsername(v.target.value)}/>
+            <p className='formtext'>Username </p>
+            <input className='forminput' type='email' value={username} onChange={v=>setUsername(v.target.value)}/>
           </div>
           <div className='formicdiv'>
-            <p style={{flex:2}}>Email: </p>
-            <input style={{flex:1}} type='email' value={email} onChange={v=>setEmail(v.target.value)}/>
+            <p className='formtext'>Email </p>
+            <input className='forminput' type='email' value={email} onChange={v=>setEmail(v.target.value)}/>
           </div>
           <div className='formicdiv'>
-            <p style={{flex:2}}>Password: </p>
-            <input style={{flex:1}} type='password' value={password} onChange={v=>setPassword(v.target.value)}/>
+            <p className='formtext'>Password </p>
+            <input className='forminput' type='password' value={password} onChange={v=>setPassword(v.target.value)}/>
           </div>
           <div className='formicdiv'>
-            <p style={{flex:2}}>Tekrar Password: </p>
-            <input style={{flex:1}} type='password' value={tpassword} onChange={v=>setTpassword(v.target.value)}/>
+            <p className='formtext'>Confirm Password </p>
+            <input className='forminput' type='password' value={tpassword} onChange={v=>setTpassword(v.target.value)}/>
           </div>
           <div className='formicdiv'>
-            <button onClick={kayitol} >Register</button>
+            <button className='formbutton' onClick={kayitol} >Sign Up</button>
           </div>
         </div>
       </div>

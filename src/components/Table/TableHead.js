@@ -17,24 +17,24 @@ function TableHead() {
     <div className='theaddisdiv'>
       <div className='filtrelerdiv'>
         <div className='filtrediv' style={{flex:1}}>
-            <h3 style={{marginRight:10}}>Id: </h3>
-            <select style={{fontSize:17}}  onChange={(v)=>{
+            <h3 className='filtretext'>Id </h3>
+            <select className='filtreselect'  onChange={(v)=>{
               //! Arama inputu boş değilse ve Id seçilmişse arama inputundaki veriyi sıfırlar
               //? Id seçilse dahi arama inputundaki yazıya göre de filtreleme yaptığı için
               dispatch(setSelectId(v.target.value))
               dispatch(setSearch(""))
               }}>
-              <option value={0}>Seç</option>
+              <option value={0}>Select</option>
               {
                 //Id'leri option olarak yazdırır
                 ids.map((i)=>{
-                  return <option selected={selectId == i && true} value={i} key={i}>{i}</option>
+                  return <option className='filtreoption' selected={selectId == i && true} value={i} key={i}>{i}</option>
                 })
               }
             </select>
         </div>
         <div className='filtrediv' style={{flex:5}}>
-            <h3 style={{marginRight:10}}>Ara: </h3>
+            <h3 className='filtretext'>Search </h3>
             <input className='arainp' value={search} onChange={(v)=>{
               //! Arama inputu boş değilse ve değişmişse sayfayı 1 yapar
               //? 2. sayfadayken arama yerine birşeyler yazmaya başlayınca 2. sayfada kaldığı için
@@ -48,41 +48,38 @@ function TableHead() {
               dispatch(setSearch(v.target.value))}}/>
         </div>
         <div className="filtrediv" style={{flex:2}}>
-            <h3 style={{marginRight:10}}>Sıralama</h3>
-            <select style={{fontSize:17}} onChange={(v)=>{dispatch(setSiralama(v.target.value))}}>
-                <option selected={siralama == 1&&true} value={1}>Baştan Sona</option>
-                <option selected={siralama !=1 &&true} value={2}>Sondan Başa</option>
+            <h3 className='filtretext'>Sort</h3>
+            <select className='filtreselect' onChange={(v)=>{dispatch(setSiralama(v.target.value))}}>
+                <option className='filtreoption' selected={siralama == 1&&true} value={1}>Oldest</option>
+                <option className='filtreoption' selected={siralama !=1 &&true} value={2}>Newest</option>
             </select>
         </div>
       </div>
-      <hr/>
       <div className='tablobolumlerdiv'>
-        <div style={{flex:1, marginLeft:10}}>
-            <h3>
+        <div className='tablobolumdiv' style={{flex:1, marginLeft:10}}>
+            <h3 className='tablobolumtext'>
               Id
             </h3>
         </div>
-        <div style={{flex:3, marginLeft:10}}>
-            <h3>
+        <div className='tablobolumdiv' style={{flex:3, marginLeft:10}}>
+            <h3 className='tablobolumtext'>
               Title
             </h3>
         </div>
-        <div style={{flex:2, marginLeft:10}}>
-            <h3>
+        <div className='tablobolumdiv' style={{flex:2, marginLeft:10}}>
+            <h3 className='tablobolumtext'>
               Description
             </h3>
         </div>
-        <div style={{flex:1, marginLeft:10}}>
-            <h3>
+        <div className='tablobolumdiv' style={{flex:1, marginLeft:10}}>
+            <h3 className='tablobolumtext'>
               Created At
             </h3>
         </div>
         {
           isAuth &&
-          <div style={{flex:1, marginLeft:10}}>
-            <h3>
-              Buttons
-            </h3>
+          <div className='tablobolumdiv' style={{flex:2, marginRight:10, justifyContent:'center'}}>
+            
           </div>
         }
       </div>

@@ -1,8 +1,13 @@
 import React from 'react'
+import '../css/Error404.css'
 
 function Error404() {
   return (
-    <div>404</div>
+    <div className='errordisdiv'>
+      <h1>
+        404 Page Not Found
+      </h1>
+    </div>
   )
 }
 

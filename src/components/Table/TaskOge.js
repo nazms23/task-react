@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-function TaskOge({taskAtt,afonks}) {
+function TaskOge({renkicinclass,taskAtt,createdDate,afonks}) {
   /*
     Parametreler
+    ? renkicinclass -> Arkaplan renklerini değiştiren class
     ? taskAtt -> task bilgileri {id,title,description,createdAt}
+    ? createdDate -> düzenlenmiş tarih bilgisi
     ? afonks  -> Anasayfadan gelen fonksiyonlar
   */
   //? Redux ----
@@ -20,6 +22,9 @@ function TaskOge({taskAtt,afonks}) {
   const [editDescription, setEditDescription] = useState(taskAtt.description)
 
   const [editMode, setEditMode] = useState(false)
+
+  //? Uzun textlere tıklandığında boyutunu büyültmeye yarar
+  const [uzunMode, setUzunMode] = useState(false)
   //? ----------------
 
 
@@ -35,7 +40,7 @@ function TaskOge({taskAtt,afonks}) {
         //Anasayfadan gelen fonksiyonu çalıştırır
         const res = await afonks.duzenle(taskAtt.id,editTitle,editDescription)
         //! Fonksiyondan dönen kod 201 ise değişkenleri edit versiyonları ile değiştirir
-        if(res == 201)
+        if(res == 204)
         {
             setTitle(editTitle)
             setDescription(editDescription)
@@ -53,36 +58,38 @@ function TaskOge({taskAtt,afonks}) {
     
 
   return (
-    <div className='taskdisdiv'>
-        <div style={{flex:1, marginLeft:10}}>
-            <p>{taskAtt.id}</p>
+    <div className={`taskdisdiv ${renkicinclass}`} onClick={()=>{setUzunMode(!uzunMode)}}>
+        <div className='taskbolme' style={{flex:1}}>
+            <p className='tasktext'>{taskAtt.id}</p>
         </div>
-        <div style={{flex:3, marginLeft:10}}>
+        <div className='taskbolme' style={{flex:3}}>
             {
-                editMode ? <input onChange={(v)=>{setEditTitle(v.target.value)}} value={editTitle}/> : <p>{title}</p>
+                editMode ? <input className='taskinput' onChange={(v)=>{setEditTitle(v.target.value)}} value={editTitle}/> : <p className='tasktext taskkaydir'>{title.length > 31 ? uzunMode? title: title.slice(0,31)+"...":title}</p>
             }
         </div>
-        <div style={{flex:2, marginLeft:10}}>
+        <div className='taskbolme' style={{flex:2}}>
             {
-                editMode ? <input onChange={(v)=>{setEditDescription(v.target.value)}} value={editDescription}/> : <p>{description}</p>
+                editMode ? <textarea className='taskinput'  onChange={(v)=>{setEditDescription(v.target.value)}} >{editDescription}</textarea>: <p className='tasktext taskkaydir'>{description.length > 31 ? uzunMode? description: description.slice(0,31)+"...":description }</p>
             }
         </div>
-        <div style={{flex:1, marginLeft:10}}>
-            <p>{taskAtt.createdAt}</p>
+        <div className='taskbolme' style={{flex:1}} >
+            <p className='tasktext'>{createdDate}</p>
         </div>
         {
           isAuth &&
-          <div style={{flex:1, marginLeft:10}}>
-            <button onClick={fonks.sil}>
-                Sil
-            </button>
-            <button onClick={fonks.setEditModFonk}>
-                Düzenle
-            </button>
+          <div className='taskbolme' style={{flex:2, display:'flex', justifyContent:'flex-end',marginRight:10}}>
             {editMode && 
-            <button onClick={fonks.duzenle}>
-                Kaydet
+            <button className='taskbutton savebuton' style={{borderColor:"#95d387"}} onClick={fonks.duzenle}>
+                Save
             </button>}
+            <button className='taskbutton editbuton' style={{borderColor:"#ffdd00"}}  onClick={fonks.setEditModFonk}>
+                Edit
+            </button>
+            <button className='taskbutton deletebuton' style={{borderColor:"rgb(252, 177, 177)"}}  onClick={fonks.sil}>
+                Delete
+            </button>
+            
+            
           </div>
         }
     </div>

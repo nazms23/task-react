@@ -1,11 +1,14 @@
 .disdiv{
-    background-color: gray;
+    background-color:#fff;
     width: '100%';
-    height: 75px;
+    height: 50px;
     justify-content: space-between;
     align-items: center;
     display: flex;
     flex-direction: row;
+    -webkit-box-shadow: 0px 9px 15px -8px rgba(0,0,0,0.59);
+    -moz-box-shadow: 0px 9px 15px -8px rgba(0,0,0,0.59);
+    box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.1);
 }
 .icdiv{
 
@@ -23,6 +26,21 @@
     margin-right: 10px;
     text-decoration: none;
     font-size: 20px;
-    background-color: rgb(50, 50, 50);
-    color: aliceblue;
+    font-weight: bold;
+    color: rgb(36, 133, 219);
+}
+.headUserText{
+    font-size: 20px;
+    color: rgb(143, 199, 247);
+    border-right-style: solid;
+    padding: 10px;
+    text-align: center;
+    height: 100%;
+
+}
+
+.headButton{
+    border-style: none;
+    background-color: white;
+    cursor: pointer;
 }

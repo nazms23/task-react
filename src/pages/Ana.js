@@ -16,6 +16,7 @@ function Ana() {
   const dispatch = useDispatch()
   const {url,token} = useSelector(s=>s.auth)
   const {maxsayfa} = useSelector(s=>s.task)
+  const {siralama} = useSelector(s=>s.filter)
   //? ----------
 
   //? Router ----
@@ -49,7 +50,7 @@ function Ana() {
           }
         }
       }).catch(()=>{
-        NotificationManager.error('Bir Hata Oluştu','Hata',2000)
+        NotificationManager.error('Something went wrong.','Error',2000)
       })
     },
     //Yeni task ekler
@@ -57,7 +58,7 @@ function Ana() {
       //Title'ın boş olup olmadığını kontrol eder
       if(title.trim() == "")
       {
-          return NotificationManager.error('Title boş bırakılamaz','Hata',2000)
+          return NotificationManager.error('Title cannot be empty.','Error',2000)
       }
       //Api isteği
       axios.post(`${url}Tasks`,{title,description},{
@@ -67,29 +68,33 @@ function Ana() {
       }).then(async(r)=>{
         if(r.status == 201)
         {
-          NotificationManager.success('Başarıyla Eklendi','Başarı',2000)
+          NotificationManager.success('Successfully Added.','Success',2000)
           //Tablo verilerini yeniler
           await fonks.vericek()
           //! Yeni eklenen task en sonda olduğundan, kullanıcı eklediğini görebilsin diye sayfayı en son sayfaya getirir
-          dispatch(setSayfa(maxsayfa))
+          //? Eğer sıralama oldestse
+          if(siralama == 1)
+          {
+            dispatch(setSayfa(maxsayfa))
+          }
         }
       }).catch((err) => {
         if(err.status == 401)
         {
-          NotificationManager.error('Bu işlemi yapabilmeniz için giriş yapmış olmanız gerekmektedir.','Hata',2000)
+          NotificationManager.error('You must be logged in to do this.','Error',2000)
         }else{
-          NotificationManager.error('Ekleme işleminde hata meydana geldi','Hata',2000)
+          NotificationManager.error('Something went wrong.','Error',2000)
         }
       });
     },
     //Task düzenler
     duzenle: async(id,title,description)=>{
       //TaskOgesinde düzenle fonksiyonuna gelen responseyi yollaması için değişken
-      const res = 1
+      let res = 1
       //Title'ın boş olup olmadığını kontrol eder
       if(title.trim() == "")
       {
-        return NotificationManager.error('Title boş bırakılamaz','Hata',2000)
+        return NotificationManager.error('Title cannot be empty.','Error',2000)
       }
       //Api isteği
       await axios.put(`${url}Tasks/${id}`,{id,title,description},{
@@ -100,20 +105,20 @@ function Ana() {
         if(r.status == 204)
         {
           res = r.status;
-          NotificationManager.success('Başarıyla düzenlendi','Başarı',2000)
+          NotificationManager.success('Successfully Edited','Success',2000)
         }
       }).catch((err) => {
         if(err.status == 401)
         {
-          NotificationManager.error('Bu işlemi yapabilmeniz için giriş yapmış olmanız gerekmektedir.','Hata',2000)
+          NotificationManager.error('You must be logged in to do this.','Error',2000)
         }
         else if(err.status ==404)
         {
-          NotificationManager.error('Id ile eşleşen task bulunamadı.','Hata',2000)
+          NotificationManager.error('Task matching Id was not found.','Error',2000)
         }
         else
         {
-          NotificationManager.error('Düzenleme işleminde hata meydana geldi','Hata',2000)
+          NotificationManager.error('Something went wrong.','Error',2000)
         }
       });
       return res
@@ -128,22 +133,22 @@ function Ana() {
       }).then(r=>{
         if(r.status == 204)
         {
-          NotificationManager.success('Başarıyla silindi','Başarı',2000)
+          NotificationManager.success('Successfully deleted','Success',2000)
           //Tablo verilerini yeniler
           fonks.vericek()
         }
       }).catch((err) => {
         if(err.status == 401)
         {
-          NotificationManager.error('Bu işlemi yapabilmeniz için giriş yapmış olmanız gerekmektedir.','Hata',2000)
+          NotificationManager.error('You must be logged in to do this.','Error',2000)
         }
         else if(err.status ==404)
         {
-          NotificationManager.error('Id ile eşleşen task bulunamadı.','Hata',2000)
+          NotificationManager.error('Task matching Id was not found.','Error',2000)
         }
         else
         {
-          NotificationManager.error('Silme işleminde hata meydana geldi','Hata',2000)
+          NotificationManager.error('Something went wrong.','Error',2000)
         }
       });
       
@@ -158,7 +163,7 @@ function Ana() {
     if(searchParams.get('q'))
     {
       //Bildirim
-      NotificationManager.success('Başarıyla giriş yapıldı','Başarı',2000)
+      NotificationManager.success('Successfully logged in','Success',2000)
 
       //! Sayfa yenileme vs durumunda bildirimin tekrar gelmemesi için parametreleri sıfırlar
       setSearchParams("")
@@ -171,7 +176,6 @@ function Ana() {
     <div className='tabledisdiv'>
         <div className='tablediv'>
             <TableHead />
-            <hr style={{width:'100%'}}/>
             {
             //isConnect true ise TableCont u yükler
             }

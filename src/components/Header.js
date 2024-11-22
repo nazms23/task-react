@@ -36,19 +36,20 @@ function Header() {
   return (
     <div className='disdiv'>
         <div className='icdiv' style={{justifyItems:'start'}}>
-            <Link to={"/"}  className='headLink'>Anasayfa</Link>
+            <Link to={"/"}  className='headLink'>Home</Link>
         </div>
         {
           //Giriş yapılıysa veya değilse gösterilcek butonlar
           !isAuth ? 
           <div className='icdiv' style={{justifyContent:'space-evenly'}}>
-            <Link to={"/login"} className='headLink'>Giriş Yap</Link>
-            <Link to={"/register"} className='headLink'>Kayıt Ol</Link>
+            <Link to={"/login"} className='headLink'>Sign in</Link>
+            <Link to={"/register"} className='headLink' style={{backgroundColor:'rgb(36, 133, 219)', color:'#fff', padding:5,borderRadius:6}}>Sign Up</Link>
           </div> 
           :
           <div className='icdiv' style={{justifyContent:'space-evenly'}}>
-            <p>{user}</p>
-            <button onClick={logout} className='headLink'>Çıkış Yap</button>
+            <p className='headUserText'>{user}</p>
+            <vr/>
+            <button onClick={logout} className='headLink headButton'>Çıkış Yap</button>
           </div>
         }
         

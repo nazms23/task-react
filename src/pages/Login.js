@@ -58,7 +58,7 @@ function Login() {
       //Şifre yanlışsa dönen kod
       if(err.status == 401)
       {
-        NotificationManager.error("Şifre Yanlış",'Şifre',2000)
+        NotificationManager.error("Incorrect password",'Password',2000)
       }
       else
       {
@@ -75,14 +75,14 @@ function Login() {
           if(err.response.data.errors)
           {
             Object.keys(err.response.data.errors).forEach((e)=>{
-              NotificationManager.error(err.response.data.errors[e][0],"Hata",2000)
+              NotificationManager.error(err.response.data.errors[e][0],"Error",2000)
 
             })
           }
           else
           {
             Object.keys(err.response.data).forEach((e)=>{
-              NotificationManager.error(err.response.data[e],"Hata",2000)
+              NotificationManager.error(err.response.data[e],"Error",2000)
             })
           }
         }
@@ -98,7 +98,7 @@ function Login() {
     if(searchParams.get('q'))
     {
       //Bildirim
-      NotificationManager.success('Başarıyla kayıt olundu','Başarı',2000)
+      NotificationManager.success('Successfully Signed Up','Success',2000)
 
       //! Sayfa yenileme vs durumunda bildirimin tekrar gelmemesi için parametreleri sıfırlar
       setSearchParams("")
@@ -111,15 +111,15 @@ function Login() {
       <div className='logindisdiv'>
         <div className='formdisdiv'>
           <div className='formicdiv'>
-            <p style={{flex:2}}>Email: </p>
-            <input style={{flex:1}} type='email' value={email} onChange={v=>setEmail(v.target.value)}/>
+            <p className='formtext'>Email </p>
+            <input className='forminput' type='email' value={email} onChange={v=>setEmail(v.target.value)}/>
           </div>
           <div className='formicdiv'>
-            <p style={{flex:2}}>Password: </p>
-            <input style={{flex:1}} type='password' value={password} onChange={v=>setPassword(v.target.value)}/>
+            <p className='formtext'>Password </p>
+            <input className='forminput' type='password' value={password} onChange={v=>setPassword(v.target.value)}/>
           </div>
           <div className='formicdiv'>
-            <button onClick={girisyap}>Login</button>
+            <button className='formbutton' onClick={girisyap}>Sign In</button>
           </div>
         </div>
       </div>

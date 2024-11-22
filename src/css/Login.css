@@ -3,16 +3,19 @@
     justify-content: center;
     align-items: center;
     display: flex;
+    color: #000;
+    margin-top: 20px;
 }
 
 .logindisdiv{
-    width: 90%;
+    width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: brown;
-
+    background-color: #86bbd8;
+    border-radius: 12px;
+    padding: 20px 0px 30px 0px;
 }
 
 .formdisdiv{
@@ -20,15 +23,38 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
 }
 
 .formicdiv{
-    width: 20%;
     display: flex;
-    flex: 1;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
     font-size: 20px;
+    width: 100%;
+}
+
+.formtext{
+    margin: 10px 0px 10px 5px;
+}
+.forminput{
+    border-style: none;
+    border-radius: 5px;
+    font-size: 17px;
+    padding: 5px;
+}
+
+.formbutton{
+    border-style: none;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    border: solid #95d387 3px;
+}
+.formbutton:hover{
+    background-color: #95d387;
 }
