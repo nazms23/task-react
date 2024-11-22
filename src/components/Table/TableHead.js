@@ -23,6 +23,7 @@ function TableHead() {
               //? Id seçilse dahi arama inputundaki yazıya göre de filtreleme yaptığı için
               dispatch(setSelectId(v.target.value))
               dispatch(setSearch(""))
+              dispatch(setSayfa(1))
               }}>
               <option value={0}>Select</option>
               {

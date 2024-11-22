@@ -63,29 +63,37 @@ function Login() {
       else
       {
         //Farklı bir hata varsa
-        if(Array.isArray(err.response.data))
+        if(err.response)
         {
-          err.response.data.forEach((e)=>{
-            NotificationManager.error(e.description,e.code,2000)
-
-          })
-        }
-        else
-        {
-          if(err.response.data.errors)
+          if(Array.isArray(err.response.data))
           {
-            Object.keys(err.response.data.errors).forEach((e)=>{
-              NotificationManager.error(err.response.data.errors[e][0],"Error",2000)
-
+            err.response.data.forEach((e)=>{
+              NotificationManager.error(e.description,e.code,2000)
+  
             })
           }
           else
           {
-            Object.keys(err.response.data).forEach((e)=>{
-              NotificationManager.error(err.response.data[e],"Error",2000)
-            })
+            if(err.response.data.errors)
+            {
+              Object.keys(err.response.data.errors).forEach((e)=>{
+                NotificationManager.error(err.response.data.errors[e][0],"Error",2000)
+  
+              })
+            }
+            else
+            {
+              Object.keys(err.response.data).forEach((e)=>{
+                NotificationManager.error(err.response.data[e],"Error",2000)
+              })
+            }
           }
         }
+        else
+        {
+          NotificationManager.error(err.message,err.code,2000)
+        }
+        
       }
     });
   }
