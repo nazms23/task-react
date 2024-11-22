@@ -4,10 +4,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setIsAuth,setToken,setUser } from '../redux/authSlice'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { NotificationContainer,NotificationManager } from 'react-notifications'
+import 'react-notifications/lib/notifications.css';
 
 function Register() {
   const {url} = useSelector(s=>s.auth)
-
+  
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -26,13 +28,42 @@ function Register() {
       await axios.post(`${url}User/register`,{userName:username,email:email,password:password}).then((result) => {
         console.log(result)
         if(result.status == 201)
-          {
-            navigate('/login');
-          }
+        {
+          navigate('/login?q=1');
+        }
+        else{
+          NotificationManager.error(result.response.data.description,'Hata',2000)
+        }
           
         }).catch((err) => {
-          console.log(err)
+            if(Array.isArray(err.response.data))
+            {
+              err.response.data.forEach((e)=>{
+                NotificationManager.error(e.description,e.code,2000)
+  
+              })
+            }
+            else
+            {
+              if(err.response.data.errors)
+              {
+                Object.keys(err.response.data.errors).forEach((e)=>{
+                  NotificationManager.error(err.response.data.errors[e][0],"Hata",2000)
+    
+                })
+              }
+              else
+              {
+                Object.keys(err.response.data).forEach((e)=>{
+                  NotificationManager.error(err.response.data[e],"Hata",2000)
+                })
+              }
+            }
         });
+    }
+    else
+    {
+      NotificationManager.error("Şifreler birbiriyle uyuşmuyor.",'Şifre',2000)
     }
   }
 
@@ -61,6 +92,7 @@ function Register() {
           </div>
         </div>
       </div>
+      <NotificationContainer/>
     </div>
   )
 }

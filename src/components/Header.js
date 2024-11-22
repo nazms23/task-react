@@ -4,7 +4,8 @@ import '../css/Header.css'
 import { useSelector,useDispatch } from 'react-redux'
 import { setIsAuth, setToken, setUser } from '../redux/authSlice'
 import { useCookies } from 'react-cookie'
-
+import { NotificationContainer,NotificationManager } from 'react-notifications'
+import 'react-notifications/lib/notifications.css';
 
 
 function Header() {
@@ -20,6 +21,7 @@ function Header() {
     removeCookie('authCookie')
     removeCookie('userCookie')
     removeCookie('tokenCookie')
+    NotificationManager.success('Başarıyla çıkış yapıldı','Başarı',2000)
   }
 
 
@@ -41,7 +43,7 @@ function Header() {
           </div>
         }
         
-        
+        <NotificationContainer/>
     </div>
   )
 }

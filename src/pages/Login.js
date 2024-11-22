@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../css/Login.css'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { setIsAuth,setToken,setUser } from '../redux/authSlice'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useSearchParams } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
-
+import { NotificationContainer,NotificationManager } from 'react-notifications'
+import 'react-notifications/lib/notifications.css';
 
 function Login() {
   const {url} = useSelector(s=>s.auth)
 
+
+  const [searchParams, setSearchParams] = useSearchParams();
   const [cookie,setCookie] = useCookies()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -30,13 +33,55 @@ function Login() {
         setCookie('authCookie',true,{expires:d})
         setCookie('userCookie',result.data.username,{expires:d})
         setCookie('tokenCookie',result.data.token,{expires:d})
-        navigate('/');
+        navigate('/?q=1');
       }
-      
-    }).catch((err) => {
-      console.log(err)
-    });
+      else{
+        NotificationManager.error(result.response.data.description,'Hata',2000)
+      }
+        
+      }).catch((err) => {
+        console.log(err)
+        if(err.status == 401)
+        {
+          NotificationManager.error("Şifre Yanlış",'Şifre',2000)
+        }
+        else{
+          if(Array.isArray(err.response.data))
+          {
+            err.response.data.forEach((e)=>{
+              NotificationManager.error(e.description,e.code,2000)
+
+            })
+          }
+          else
+          {
+            if(err.response.data.errors)
+            {
+              Object.keys(err.response.data.errors).forEach((e)=>{
+                NotificationManager.error(err.response.data.errors[e][0],"Hata",2000)
+  
+              })
+            }
+            else
+            {
+              Object.keys(err.response.data).forEach((e)=>{
+                NotificationManager.error(err.response.data[e],"Hata",2000)
+              })
+            }
+          }
+        }
+        
+      });
   }
+
+
+  useEffect(()=>{
+    if(searchParams.get('q'))
+    {
+      NotificationManager.success('Başarıyla kayıt olundu','Başarı',2000)
+      setSearchParams("")
+    }
+  },[])
 
 
   return (
@@ -56,6 +101,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <NotificationContainer/>
     </div>
   )
 }
