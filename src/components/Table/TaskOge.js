@@ -2,31 +2,55 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 function TaskOge({taskAtt,afonks}) {
-    const {isAuth} = useSelector(s=>s.auth)
+  /*
+    Parametreler
+    ? taskAtt -> task bilgileri {id,title,description,createdAt}
+    ? afonks  -> Anasayfadan gelen fonksiyonlar
+  */
+  //? Redux ----
+  const {isAuth} = useSelector(s=>s.auth)
+  //? ----------
 
-    const fonks = {
-        setEditModFonk: ()=>{
-            setEditMode(!editMode)
-        },
+  //? Değişkenler ----
+  const [title, setTitle] = useState(taskAtt.title)
+  const [description, setDescription] = useState(taskAtt.description)
 
-        duzenle: async ()=>{
-            await afonks.duzenle(taskAtt.id,editTitle,editDescription)
+  //! Edit olanlar sadece inputlarda kalır normal olanlar ise "p" taglarında kalır
+  const [editTitle, setEditTitle] = useState(taskAtt.title)
+  const [editDescription, setEditDescription] = useState(taskAtt.description)
+
+  const [editMode, setEditMode] = useState(false)
+  //? ----------------
+
+
+  //Fonksiyonlar
+  const fonks = {
+    //Düzenle butonuna basınca edit modunu açar
+    //? Edit modu textlerin yerine input koyarak düzenlemeye açık hale getirir
+    setEditModFonk: ()=>{
+        setEditMode(!editMode)
+    },
+    //Kaydet butonuna basınca çalışır
+    duzenle: async ()=>{
+        //Anasayfadan gelen fonksiyonu çalıştırır
+        const res = await afonks.duzenle(taskAtt.id,editTitle,editDescription)
+        //! Fonksiyondan dönen kod 201 ise değişkenleri edit versiyonları ile değiştirir
+        if(res == 201)
+        {
             setTitle(editTitle)
             setDescription(editDescription)
             setEditMode(false)
-        },
-        sil: async()=>{
-            await afonks.sil(taskAtt.id)
         }
+    },
+    sil: async()=>{
+        await afonks.sil(taskAtt.id)
     }
+}
 
-    const [title, setTitle] = useState(taskAtt.title)
-    const [description, setDescription] = useState(taskAtt.description)
-    const [editTitle, setEditTitle] = useState(taskAtt.title)
-    const [editDescription, setEditDescription] = useState(taskAtt.description)
+    
 
 
-    const [editMode, setEditMode] = useState(false)
+    
 
   return (
     <div className='taskdisdiv'>

@@ -2,9 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 const initialState = {
+    //Arama kutusundaki text
     search: "",
+    //Sıralama
     siralama:true, //true -> Baştan Sona ----- false -> Sondan Başa
+    //Seçili Id
     selectId:0,
+    //Aktif sayfa
     sayfa:1
 }
 

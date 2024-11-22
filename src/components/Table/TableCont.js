@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import '../../css/Table.css'
 import TaskOge from './TaskOge'
 import { useSelector,useDispatch} from 'react-redux'
 import { setMaxsayfa } from '../../redux/taskSlice'
 
 function TableCont({taskfonks}) {
+  //? Redux ----
   const dispatch = useDispatch()
   const {isAuth} = useSelector(s=>s.auth)
   const {tasks,maxsayfa} = useSelector(s=>s.task)
   const {search,siralama,selectId,sayfa} = useSelector(s=>s.filter)
+  //? ----------
 
-{/* <TaskOge taskAtt={t} afonks={taskfonks} key={t.id}/> */}
 
-  const deneme = (dizi)=>{
-    let ret = dizi.sort((a,b)=>{return siralama == 1 ? a.id-b.id : b.id-a.id}).filter(t=>{
+  //Gelen tasklarla ilgili filtreleme vs yapan fonksiyon
+  const taskFonk = (dizi)=>{
+    let filtrelenmisTasks = dizi
+    //siralama değişkenine göre baştan sona veya sondan başa sıralar
+    .sort((a,b)=>{return siralama == 1 ? a.id-b.id : b.id-a.id})
+    //Id, Title ve Descriptiona göre filtreleme yapar
+    .filter(t=>{
+      //Title ve descriptiona, arama inputuna yazılana göre filtreleme
       if(t.description.toLowerCase().includes(search) || t.title.toLowerCase().includes(search))
       {
+        //Seçili Id varsa seçili Id ye göre filtreleme
         if(selectId != 0)
         {
           if(t.id == selectId)
@@ -29,22 +37,23 @@ function TableCont({taskfonks}) {
         }
       }
     })
-
-    let retdoncek = ret.slice(((sayfa-1)*4)+sayfa-1,(sayfa*4)+sayfa).map(k=>{
+    //Filtrelenen tasklara göre sayfalama işlemleri ve yazdırılma
+    let sayfayaYazilanTask = filtrelenmisTasks.slice(((sayfa-1)*4)+sayfa-1,(sayfa*4)+sayfa).map(k=>{
       return <TaskOge taskAtt={k} afonks={taskfonks} key={k.id}/> 
     })
-    if(ret.length % 5 == 0)
+
+    //Filtrelenen tasklara göre maksimum sayfa belirleme
+    if(filtrelenmisTasks.length % 5 == 0)
     {
-        dispatch(setMaxsayfa(ret.length/5))
+        dispatch(setMaxsayfa(filtrelenmisTasks.length/5))
     }
     else
     {
-      dispatch(setMaxsayfa(Math.ceil(ret.length/5)))
+      dispatch(setMaxsayfa(Math.ceil(filtrelenmisTasks.length/5)))
     }
+
     
-    console.log("maxsayfa",maxsayfa)
-    console.log(ret)
-    return retdoncek
+    return sayfayaYazilanTask
 
   }
 
@@ -53,7 +62,7 @@ function TableCont({taskfonks}) {
   return (
     <div className='tcontdisdiv'>
       {
-        deneme([...tasks])
+        taskFonk([...tasks])
       }
     </div>
     

@@ -1,64 +1,70 @@
 import React, { useState } from 'react'
 import '../css/Login.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { setIsAuth,setToken,setUser } from '../redux/authSlice'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { NotificationContainer,NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
 
 function Register() {
+  //? Redux ----
   const {url} = useSelector(s=>s.auth)
-  
+  //? ----------
+
+  //? Router ----
   const navigate = useNavigate()
+  //? -----------
+
+  //? Değişkenler ----
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [tpassword, setTpassword] = useState("")
   const [username, setUsername] = useState("")
+  //? ----------------
 
 
+
+  //? Kayıt olma fonksiyonu ----
   const kayitol = async () =>{
-    console.log(username)
-    console.log(email)
-    console.log(password)
-    console.log(tpassword)
-
+    //Password ile tekrar password aynıysa
     if(password == tpassword)
     {
+      //Api isteği
       await axios.post(`${url}User/register`,{userName:username,email:email,password:password}).then((result) => {
         console.log(result)
         if(result.status == 201)
         {
+          //! Kayıt başarılıysa login sayfasına yönlendirme
           navigate('/login?q=1');
-        }
-        else{
-          NotificationManager.error(result.response.data.description,'Hata',2000)
-        }
-          
+        } 
         }).catch((err) => {
-            if(Array.isArray(err.response.data))
+          //! Hata mesajları
+          //? data eğer array ise, datanın içindeki bilgilerin description ve codunu hata olarak yazdır.
+          if(Array.isArray(err.response.data))
+          {
+            err.response.data.forEach((e)=>{
+              NotificationManager.error(e.description,e.code,2000)
+
+            })
+          }
+          else
+          {
+            //? datanın içinde errors varsa errorsun içindeki hata içeriğini yazdır
+            if(err.response.data.errors)
             {
-              err.response.data.forEach((e)=>{
-                NotificationManager.error(e.description,e.code,2000)
+              Object.keys(err.response.data.errors).forEach((e)=>{
+                NotificationManager.error(err.response.data.errors[e][0],"Hata",2000)
   
               })
             }
             else
             {
-              if(err.response.data.errors)
-              {
-                Object.keys(err.response.data.errors).forEach((e)=>{
-                  NotificationManager.error(err.response.data.errors[e][0],"Hata",2000)
-    
-                })
-              }
-              else
-              {
-                Object.keys(err.response.data).forEach((e)=>{
-                  NotificationManager.error(err.response.data[e],"Hata",2000)
-                })
-              }
+              //? datanın içinde errors yoksa datanın içindeki hata içeriğini yazdır
+              Object.keys(err.response.data).forEach((e)=>{
+                NotificationManager.error(err.response.data[e],"Hata",2000)
+              })
             }
+          }
         });
     }
     else
@@ -66,6 +72,7 @@ function Register() {
       NotificationManager.error("Şifreler birbiriyle uyuşmuyor.",'Şifre',2000)
     }
   }
+  //? --------------------------
 
   return (
     <div className='loginendisdiv'>

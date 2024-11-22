@@ -4,14 +4,25 @@ import { useSelector,useDispatch } from 'react-redux'
 import { setSayfa } from '../../redux/filterSlice'
 
 function TableFoot({eklefonk}) {
+  //? Redux ----
   const dispatch = useDispatch()
   const {isAuth} = useSelector(s=>s.auth)
   const {sayfa} = useSelector(s=>s.filter)
   const {maxsayfa} = useSelector(s=>s.task)
+  //? ----------
 
+  //? Değişkenler ----
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  //? ----------------
+
+  
+  
+  //Fonksiyonlar
   const fonks={
     ekle: async()=>
     {
+      //Ekleye basıldığında title ve descriptionu sıfırlar
       await eklefonk(title,description);
       setTitle("")
       setDescription("")
@@ -27,8 +38,7 @@ function TableFoot({eklefonk}) {
   }
 
 
-  const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
+  
 
   return (
     <div className='tfootdisdiv'>

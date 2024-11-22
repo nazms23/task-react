@@ -2,8 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 const initialState = {
+    //Tasklar
     tasks: [],
+    //Taskların idleri
     ids:[],
+    //Maksimum sayfa numarası
     maxsayfa:1
 }
 

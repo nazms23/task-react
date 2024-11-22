@@ -2,9 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 const initialState = {
+    //Giriş Yapılı mı?
     isAuth: false,
+    //Token
     token:"",
+    //Kullanıcı Adı
     user:"",
+    //Api URL
     url: "http://localhost:5070/api/"
 }
 

@@ -9,76 +9,98 @@ import { NotificationContainer,NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
 
 function Login() {
+  //? Redux ----
   const {url} = useSelector(s=>s.auth)
-
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [cookie,setCookie] = useCookies()
-  const navigate = useNavigate()
   const dispatch = useDispatch()
+  //? ----------
+
+  //? Router ----
+  const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams();
+  //? -----------
+
+  //? Cookie ----
+  const [cookie,setCookie] = useCookies()
+  //? ----------
+
+  //? Değişkenler ----
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  //? ----------------
 
-
+  //? Giriş yapma fonksiyonu ----
   const girisyap = async ()=>{
-    await axios.post(`${url}User/Login`,{email:email,password:password}).then((result) => {
-      if(result.status == 200)
-      {
-        let d = new Date()
-        d.setTime(d.getTime()+(1*60*60*1000))
-
-        dispatch(setIsAuth(true))
-        dispatch(setUser(result.data.username))
-        dispatch(setToken(result.data.token))
-        setCookie('authCookie',true,{expires:d})
-        setCookie('userCookie',result.data.username,{expires:d})
-        setCookie('tokenCookie',result.data.token,{expires:d})
-        navigate('/?q=1');
-      }
-      else{
-        NotificationManager.error(result.response.data.description,'Hata',2000)
-      }
-        
-      }).catch((err) => {
-        console.log(err)
-        if(err.status == 401)
+    //Api isteği
+    await axios.post(`${url}User/Login`,{email:email,password:password}).then((result) => 
+    {
+        if(result.status == 200)
         {
-          NotificationManager.error("Şifre Yanlış",'Şifre',2000)
+          //! Giriş başarılıysa gelen bilgileri cookieye kaydetme ve anasayfaya yönlendirme
+          
+          //Cookieler için 1 saatlik zaman
+          let d = new Date()
+          d.setTime(d.getTime()+(1*60*60*1000))
+
+          //Reduxlara bilgileri kaydetme
+          dispatch(setIsAuth(true))
+          dispatch(setUser(result.data.username))
+          dispatch(setToken(result.data.token))
+
+          //Cookieye bilgileri kaydetme
+          setCookie('authCookie',true,{expires:d})
+          setCookie('userCookie',result.data.username,{expires:d})
+          setCookie('tokenCookie',result.data.token,{expires:d})
+
+          //Anasayfaya yönlendirme
+          navigate('/?q=1');
+        } 
+    }).catch((err) => {
+      //Şifre yanlışsa dönen kod
+      if(err.status == 401)
+      {
+        NotificationManager.error("Şifre Yanlış",'Şifre',2000)
+      }
+      else
+      {
+        //Farklı bir hata varsa
+        if(Array.isArray(err.response.data))
+        {
+          err.response.data.forEach((e)=>{
+            NotificationManager.error(e.description,e.code,2000)
+
+          })
         }
-        else{
-          if(Array.isArray(err.response.data))
+        else
+        {
+          if(err.response.data.errors)
           {
-            err.response.data.forEach((e)=>{
-              NotificationManager.error(e.description,e.code,2000)
+            Object.keys(err.response.data.errors).forEach((e)=>{
+              NotificationManager.error(err.response.data.errors[e][0],"Hata",2000)
 
             })
           }
           else
           {
-            if(err.response.data.errors)
-            {
-              Object.keys(err.response.data.errors).forEach((e)=>{
-                NotificationManager.error(err.response.data.errors[e][0],"Hata",2000)
-  
-              })
-            }
-            else
-            {
-              Object.keys(err.response.data).forEach((e)=>{
-                NotificationManager.error(err.response.data[e],"Hata",2000)
-              })
-            }
+            Object.keys(err.response.data).forEach((e)=>{
+              NotificationManager.error(err.response.data[e],"Hata",2000)
+            })
           }
         }
-        
-      });
+      }
+    });
   }
+  //? ---------------------------
+
 
 
   useEffect(()=>{
+    //! Arama parametrelerinde "q" varsa (kayıt oldan yönlendirme) başarıyla kayıt olundu bildirimi ve parametreleri sıfırlama
     if(searchParams.get('q'))
     {
+      //Bildirim
       NotificationManager.success('Başarıyla kayıt olundu','Başarı',2000)
+
+      //! Sayfa yenileme vs durumunda bildirimin tekrar gelmemesi için parametreleri sıfırlar
       setSearchParams("")
     }
   },[])

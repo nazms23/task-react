@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../css/Header.css'
 import { useSelector,useDispatch } from 'react-redux'
 import { setIsAuth, setToken, setUser } from '../redux/authSlice'
@@ -9,15 +9,23 @@ import 'react-notifications/lib/notifications.css';
 
 
 function Header() {
-  const navigate = useNavigate();
+  //? Redux ----
   const dispatch = useDispatch();
-  const [cookie,setCookie,removeCookie] = useCookies()
   const {isAuth,user} = useSelector(s=>s.auth)
+  //? ----------
 
+  //? Cookie ----
+  const [cookie,setCookie,removeCookie] = useCookies()
+  //? -----------
+
+
+  //!Çıkış yapma fonksiyonu
   const logout = ()=>{
+    //Reduxdaki bilgileri siler
     dispatch(setIsAuth(false))
     dispatch(setToken(""))
     dispatch(setUser({}))
+    //Cookieleri siler
     removeCookie('authCookie')
     removeCookie('userCookie')
     removeCookie('tokenCookie')
@@ -31,6 +39,7 @@ function Header() {
             <Link to={"/"}  className='headLink'>Anasayfa</Link>
         </div>
         {
+          //Giriş yapılıysa veya değilse gösterilcek butonlar
           !isAuth ? 
           <div className='icdiv' style={{justifyContent:'space-evenly'}}>
             <Link to={"/login"} className='headLink'>Giriş Yap</Link>
