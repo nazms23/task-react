@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import '../css/Login.css'
-import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
-import { setIsAuth,setToken,setUser } from '../redux/authSlice'
 import { useNavigate,useSearchParams } from 'react-router-dom'
-import { useCookies } from 'react-cookie'
 import { NotificationContainer,NotificationManager } from 'react-notifications'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
+
+import { setIsAuth,setToken,setUser } from '../redux/authSlice'
+
+import '../css/Login.css'
 import 'react-notifications/lib/notifications.css';
 
 function Login() {
   //? Redux ----
-  const {url} = useSelector(s=>s.auth)
+  const {url} = useSelector(s=>s.api)
   const dispatch = useDispatch()
   //? ----------
 
@@ -102,6 +104,9 @@ function Login() {
 
 
   useEffect(()=>{
+    //* Title değiştirir
+    document.title = "Sign In"
+
     //! Arama parametrelerinde "q" varsa (kayıt oldan yönlendirme) başarıyla kayıt olundu bildirimi ve parametreleri sıfırlama
     if(searchParams.get('q'))
     {

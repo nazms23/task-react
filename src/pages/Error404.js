@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+
 import '../css/Error404.css'
 
 function Error404() {
+
+  useEffect(()=>{
+    //* Title değiştirir
+    document.title = "Not Found"
+  },[])
+
   return (
     <div className='errordisdiv'>
       <h1>

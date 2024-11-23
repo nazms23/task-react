@@ -36,7 +36,7 @@ function App() {
     <div>
       <Header/>
       <Routes>
-        <Route path="/" element={<Ana/>}/>
+        <Route path="/" element={<Ana/>}  />
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="*" element={<Error404/>}/>

@@ -1,7 +1,9 @@
 import React from 'react'
-import '../../css/Table.css'
 import { useSelector, useDispatch } from 'react-redux'
+
 import { setSearch,setSiralama,setSelectId, setSayfa } from '../../redux/filterSlice'
+
+import '../../css/Table.css'
 
 function TableHead() {
   //? Redux ----

@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useSearchParams } from 'react-router-dom'
+import { NotificationContainer,NotificationManager } from 'react-notifications'
+import axios from 'axios'
+
+import { setSayfa } from '../redux/filterSlice'
+import { setTasks,setIds, setMaxsayfa } from '../redux/taskSlice'
+
 import TableHead from '../components/Table/TableHead'
 import TableCont from '../components/Table/TableCont'
 import TableFoot from '../components/Table/TableFoot'
+
+
 import '../css/Anasayfa.css'
-import axios from 'axios'
-import { useSelector, useDispatch } from 'react-redux'
-import { setTasks,setIds, setMaxsayfa } from '../redux/taskSlice'
-import { setSayfa } from '../redux/filterSlice'
-import { NotificationContainer,NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
-import { useSearchParams } from 'react-router-dom'
 
 function Ana() {
   //? Redux ----
   const dispatch = useDispatch()
-  const {url,token} = useSelector(s=>s.auth)
+  const {token} = useSelector(s=>s.auth)
+  const {url} = useSelector(s=>s.api)
   const {maxsayfa} = useSelector(s=>s.task)
   const {siralama} = useSelector(s=>s.filter)
   //? ----------
@@ -159,6 +164,10 @@ function Ana() {
   const [isConnect, setIsConnect] = useState(false)
 
   useEffect(()=>{
+    //* Title değiştirir
+    document.title = "Main Page"
+
+
     //! Arama parametrelerinde "q" varsa (Giriş yaptan yönlendirme) başarıyla giriş yapıldı bildirimi ve parametreleri sıfırlama
     if(searchParams.get('q'))
     {

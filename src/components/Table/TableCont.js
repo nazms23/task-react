@@ -1,8 +1,11 @@
 import React from 'react'
-import '../../css/Table.css'
-import TaskOge from './TaskOge'
 import { useSelector,useDispatch} from 'react-redux'
+
 import { setMaxsayfa } from '../../redux/taskSlice'
+
+import TaskOge from './TaskOge'
+
+import '../../css/Table.css'
 
 function TableCont({taskfonks}) {
   //? Redux ----

@@ -8,8 +8,6 @@ const initialState = {
     token:"",
     //Kullanıcı Adı
     user:"",
-    //Api URL
-    url: "http://localhost:5070/api/"
 }
 
 export const authSlice = createSlice({

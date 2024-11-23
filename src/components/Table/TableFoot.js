@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import '../../css/Table.css'
 import { useSelector,useDispatch } from 'react-redux'
+
 import { setSayfa } from '../../redux/filterSlice'
+
+import '../../css/Table.css'
 
 function TableFoot({eklefonk}) {
   //? Redux ----

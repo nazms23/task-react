@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../css/Header.css'
 import { useSelector,useDispatch } from 'react-redux'
-import { setIsAuth, setToken, setUser } from '../redux/authSlice'
-import { useCookies } from 'react-cookie'
 import { NotificationContainer,NotificationManager } from 'react-notifications'
-import 'react-notifications/lib/notifications.css';
+import { useCookies } from 'react-cookie'
 
+import { setIsAuth, setToken, setUser } from '../redux/authSlice'
+
+import 'react-notifications/lib/notifications.css';
+import '../css/Header.css'
 
 function Header() {
   //? Redux ----

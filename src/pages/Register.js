@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
-import '../css/Login.css'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { NotificationContainer,NotificationManager } from 'react-notifications'
+import axios from 'axios'
+
+import '../css/Login.css'
 import 'react-notifications/lib/notifications.css';
 
 function Register() {
   //? Redux ----
-  const {url} = useSelector(s=>s.auth)
+  const {url} = useSelector(s=>s.api)
   //? ----------
 
   //? Router ----
@@ -73,6 +74,11 @@ function Register() {
     }
   }
   //? --------------------------
+
+  useEffect(()=>{
+    //* Title değiştirir
+    document.title = "Sign Up"
+  },[])
 
   return (
     <div className='loginendisdiv'>
