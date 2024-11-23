@@ -43,8 +43,8 @@ function Header() {
           //Giriş yapılıysa veya değilse gösterilcek butonlar
           !isAuth ? 
           <div className='icdiv' style={{justifyContent:'space-evenly'}}>
-            <Link to={"/login"} className='headLink'>Sign in</Link>
-            <Link to={"/register"} className='headLink' style={{backgroundColor:'rgb(36, 133, 219)', color:'#fff', padding:5,borderRadius:6}}>Sign Up</Link>
+            <Link to={"/sign-in"} className='headLink'>Sign in</Link>
+            <Link to={"/sign-up"} className='headLink' style={{backgroundColor:'rgb(36, 133, 219)', color:'#fff', padding:5,borderRadius:6}}>Sign Up</Link>
           </div> 
           :
           <div className='icdiv' style={{justifyContent:'space-evenly'}}>

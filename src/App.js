@@ -37,8 +37,8 @@ function App() {
       <Header/>
       <Routes>
         <Route path="/" element={<Ana/>}  />
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register/>}/>
+        <Route path="/sign-in" element={<Login/>}/>
+        <Route path="/sign-up" element={<Register/>}/>
         <Route path="*" element={<Error404/>}/>
       </Routes>
     </div>

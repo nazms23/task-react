@@ -165,7 +165,7 @@ function Ana() {
 
   useEffect(()=>{
     //* Title değiştirir
-    document.title = "Main Page"
+    document.title = "Home"
 
 
     //! Arama parametrelerinde "q" varsa (Giriş yaptan yönlendirme) başarıyla giriş yapıldı bildirimi ve parametreleri sıfırlama
