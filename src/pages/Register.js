@@ -41,30 +41,37 @@ function Register() {
         }).catch((err) => {
           //! Hata mesajları
           //? data eğer array ise, datanın içindeki bilgilerin description ve codunu hata olarak yazdır.
-          if(Array.isArray(err.response.data))
+          if(err.response)
           {
-            err.response.data.forEach((e)=>{
-              NotificationManager.error(e.description,e.code,2000)
-
-            })
-          }
-          else
-          {
-            //? datanın içinde errors varsa errorsun içindeki hata içeriğini yazdır
-            if(err.response.data.errors)
+            if(Array.isArray(err.response.data))
             {
-              Object.keys(err.response.data.errors).forEach((e)=>{
-                NotificationManager.error(err.response.data.errors[e][0],"Error",2000)
+              err.response.data.forEach((e)=>{
+                NotificationManager.error(e.description,e.code,2000)
   
               })
             }
             else
             {
-              //? datanın içinde errors yoksa datanın içindeki hata içeriğini yazdır
-              Object.keys(err.response.data).forEach((e)=>{
-                NotificationManager.error(err.response.data[e],"Error",2000)
-              })
+              //? datanın içinde errors varsa errorsun içindeki hata içeriğini yazdır
+              if(err.response.data.errors)
+              {
+                Object.keys(err.response.data.errors).forEach((e)=>{
+                  NotificationManager.error(err.response.data.errors[e][0],"Error",2000)
+    
+                })
+              }
+              else
+              {
+                //? datanın içinde errors yoksa datanın içindeki hata içeriğini yazdır
+                Object.keys(err.response.data).forEach((e)=>{
+                  NotificationManager.error(err.response.data[e],"Error",2000)
+                })
+              }
             }
+          }
+          else
+          {
+            NotificationManager.error(err.message,err.code,2000)
           }
         });
     }
