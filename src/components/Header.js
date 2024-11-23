@@ -50,7 +50,7 @@ function Header() {
           <div className='icdiv' style={{justifyContent:'space-evenly'}}>
             <p className='headUserText'>{user}</p>
             <vr/>
-            <button onClick={logout} className='headLink headButton'>Çıkış Yap</button>
+            <button onClick={logout} className='headLink headButton'>Logout</button>
           </div>
         }
         

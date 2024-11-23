@@ -5,7 +5,7 @@ const initialState = {
     /*
     *Api URL
     ! Sonunda "/" olmasına dikkat edin
-    ? Örn -> http://localhost/api/ <-- 
+    ? Örn -> http://localhost:XXXX/api/ <-- 
     */
     url: "http://localhost:5070/api/"
 }
