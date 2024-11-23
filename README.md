@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+### Task React App
+## Kurulum
+İlk önce projeyi sonrasında ise [Task-Api](https://github.com/nazms23/task-api) 'yi kurun
+# Proje
+1. Projeyi klonlayın.
+2. Terminalden projeye gidin ve **npm install** yazıp paketleri yükleyin.
+3. **npm start** ile projeyi başlatın.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Task-Api
+1. Projeyi [bu bağlantıdan](https://github.com/nazms23/task-api) klonlayın.
+2. Dotnet 7 sürümüne sahipseniz terminalden proje klasörüne gidin ve **dotnet watch** yazarak başlatın.
+3. Dotnet 7 sürümüne sahip değilseniz [bu bağlantıdan](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) indirebilirsiniz.
 
-## Available Scripts
+# Api bağlantısını projeye ekleme
+1. Apiyi terminale **dotnet watch** yazarak çalıştırın.
+>Now listening on: http://localhost:XXXX
+2. Bu yazıdan portunuzu öğrendikten sonra Task React projesinin klasörüne gidin.
+> src/redux/apiSlice.js
+3. Dosyasını açın, initial state objesinin içindeki url kısmına http://localhost:XXXX/api/ şeklinde yazın.
+4. Projeyi **npm start** yazarak çalıştırın.
 
-In the project directory, you can run:
+## Kullanım
+# Sign Up Sayfası
+1. Username
+    - Doldurulması gerekli.
+    - Aynı kullanıcı adı ile kayıt olunamaz.
+2. Email
+    - Doldurulması gerekli.
+    - Aynı email ile kayıt olunamaz.
+3- Password
+    - Minimum 6 karakter olmalı.
+    - Alfanümerik olmayan karakter içeremez.
+4- Confirm Password
+    - Şifre ile aynı olmalıdır.
+# Login Sayfası
+1. Email
+2. Password
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Home Sayfası
+1. Id Selectbox
+    - **Select** seçili iken tüm tasklar gelir.
+    - "X" herhangi bir id seçili iken sadece o idye ait task gelir.
+    - Id seçildiğinde arama kutusundaki **yazı sıfırlanır**.
+    - Id seçildiğinde sayfa numarası **1** olur.
+2. Search Input
+    - Boşken tüm tasklar gelir.
+    - Arama kutusu **TITLE ve DESCRIPTION** 'a göre arar.
+    - Aramaya herhangi bir şey yazıldığında Id Selectbox **Select** durumuna gelir.
+    - Aramaya herhangi bir şey yazıldığında sayfa numarası **1** olur.
+3. Sort
+    - **Oldest** seçiliyken en eskiden en yeniye tasklar sıralanır. **Varsayılan olarak seçili gelir.**
+    - **Newest** seçiliyken en yeniden en eskiye tasklar sıralanır.
+4. Task
+    - **Title** veya **Description** sonunda **...** olan taskların üzerine tıklandığında genişler.
+5. Sayfalama
+    - Buton **<** 1 önceki sayfayı açar. **Sayfa numarası 1 ise çalışmaz.**
+    - **Sayfa numarası** bulunulan sayfayı göstertir.
+    - Buton **>** 1 sonraki sayfayı açar. **Sayfa numarası olabilcek en fazla sayfa sayısına eşit ise çalışmaz.**
+# Giriş Yapılıyken Home Sayfası
+1. Header
+    - **Logout** Hesapdan çıkış yapmaya yarar.
+    - **Username** Logout butonun solundadır. Kullanıcı adınızı görüntüler.
+2. Delete
+    - Taskı silmeye yarar.
+3. Edit
+    - Edit modunu açıp kapatmaya yarar.
+    - Edit Modu
+        - Title ve Descriptionu inputlar ile değiştirir ve düzenleyebilme imkanı sunar.
+4. Save
+    - Edit modu açılıyken gözükür.
+    - Yapılan değişiklikleri kaydetmeye yarar.
+5. Add New Task
+    - **Title**
+        - Boş bırakılamaz.
+    - **Description**
+        - Boş Bırakılabilir.
