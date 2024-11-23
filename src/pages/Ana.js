@@ -47,6 +47,9 @@ function Ana() {
           //Verilerin uzunluğuna göre maksimum sayfayı belirler
           if(r.data.length % 5 == 0)
           {
+            //! Yeni eklenen task en sonda olduğundan, kullanıcı eklediğini görebilsin diye sayfayı en son sayfaya getirir
+            //! Silinen task sayfanın ilk taskıysa bi önceki sayfaya döndürür
+            //? Eğer sıralama oldestse
             if((islem == "ekle" || islem == "sil") && siralama == 1)
             {
               dispatch(setSayfa(r.data.length/5))
