@@ -30,7 +30,7 @@ function Header() {
     removeCookie('authCookie')
     removeCookie('userCookie')
     removeCookie('tokenCookie')
-    NotificationManager.success('Başarıyla çıkış yapıldı','Başarı',2000)
+    NotificationManager.success('Successfully logged out','Success',2000)
   }
 
 

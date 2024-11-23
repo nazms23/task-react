@@ -34,7 +34,7 @@ function TableFoot({eklefonk}) {
       
     },
     geri:()=>{
-      sayfa != 1 && dispatch(setSayfa(sayfa-1))
+      sayfa >= 1 && dispatch(setSayfa(sayfa-1))
     }
 
   }
@@ -49,7 +49,7 @@ function TableFoot({eklefonk}) {
           {isAuth && <h3 className='tfoottaskyazi'>Add New Task</h3>}
         </div>
         <div className='sayfadisdiv tfootustbolmediv'>
-          <button onClick={fonks.geri} disabled={sayfa == 1? true:false} className='sayfaItem sayfabutton'>
+          <button onClick={fonks.geri} disabled={sayfa <= 1? true:false} className='sayfaItem sayfabutton'>
             {"<"}
           </button>
           <p className='sayfaItem'>{sayfa}</p>

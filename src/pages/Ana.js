@@ -32,7 +32,7 @@ function Ana() {
   //! Tüm Fonksiyonlar
   const fonks = {
     //Tasksların hepsinin reduxa kaydedilmesini sağlar
-    vericek: async ()=>{
+    vericek: async (islem)=>{
       //Api isteği
       await axios.get(`${url}Tasks`).then(r=>{
         if(r.status == 200)
@@ -47,10 +47,21 @@ function Ana() {
           //Verilerin uzunluğuna göre maksimum sayfayı belirler
           if(r.data.length % 5 == 0)
           {
+            if((islem == "ekle" || islem == "sil") && siralama == 1)
+            {
+              dispatch(setSayfa(r.data.length/5))
+            }
             dispatch(setMaxsayfa(r.data.length/5))
           }
           else
           {
+            //! Yeni eklenen task en sonda olduğundan, kullanıcı eklediğini görebilsin diye sayfayı en son sayfaya getirir
+            //! Silinen task sayfanın ilk taskıysa bi önceki sayfaya döndürür
+            //? Eğer sıralama oldestse
+            if((islem == "ekle" || islem == "sil") && siralama == 1)
+            {
+              dispatch(setSayfa(Math.ceil(r.data.length/5)))
+            }
             dispatch(setMaxsayfa(Math.ceil(r.data.length/5)))
           }
         }
@@ -75,14 +86,9 @@ function Ana() {
         {
           NotificationManager.success('Successfully Added.','Success',2000)
           //Tablo verilerini yeniler
-          await fonks.vericek()
-          //! Yeni eklenen task en sonda olduğundan, kullanıcı eklediğini görebilsin diye sayfayı en son sayfaya getirir
-          //? Eğer sıralama oldestse
-          if(siralama == 1)
-          {
-            dispatch(setSayfa(maxsayfa))
-          }
+          await fonks.vericek("ekle")
         }
+
       }).catch((err) => {
         if(err.status == 401)
         {
@@ -140,7 +146,7 @@ function Ana() {
         {
           NotificationManager.success('Successfully deleted','Success',2000)
           //Tablo verilerini yeniler
-          fonks.vericek()
+          fonks.vericek("sil")
         }
       }).catch((err) => {
         if(err.status == 401)

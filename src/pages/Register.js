@@ -36,7 +36,7 @@ function Register() {
         if(result.status == 201)
         {
           //! Kayıt başarılıysa login sayfasına yönlendirme
-          navigate('/login?q=1');
+          navigate('/sign-in?q=1');
         } 
         }).catch((err) => {
           //! Hata mesajları
